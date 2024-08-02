@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Problem Solving</title>
+</head>
+<body>
+
+    <div class="salary-by">
+        <label for="amount">Enter value in jordan: </label>
+        <br>
+        
+        <input type="number" id="amount">
+        <input type="submit" class="submit-btn">
+        
+        <br><br>
+        <div class="jod">price in jordan be as: <span> </span> </div>
+        <div class="sar">price in saudi arabia: <span> </span> </div>
+                
+    </div>
+    
+</body>
+
+    <script>
+
+        let amount = document.querySelector("#amount"); 
+        let jodPrice = document.querySelector(".jod span"); 
+
+        let sarPrice = document.querySelector(".sar span"); 
+        let btnStatus = document.querySelector(".submit-btn");
+
+        fetch("https://api.currencyfreaks.com/v2.0/rates/latest?apikey=81256c4c87b549a091b057f7e998741a")
+        .then((response) => {
+            
+            let myData = response.json(); //this section will return promise because do analysis to the last end-point
+            return myData;
+        
+        }).then((dataNeeded)=>{
+            btnStatus.addEventListener("click",function(){
+                jodPrice.innerHTML = Math.round(amount.value * dataNeeded.rates["JOD"]);
+                sarPrice.innerHTML = Math.round(amount.value * dataNeeded.rates["SAR"]);
+            })
+        })
+
+    </script>
+
+</html>
